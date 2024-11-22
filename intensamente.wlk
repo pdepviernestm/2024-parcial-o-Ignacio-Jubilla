@@ -1,7 +1,8 @@
+
 class Persona{
     var property edad
+
     const emociones=[]
-    var property valorIntensidadElevada
 
     method esAdolescente() = edad>=12 and edad<=19
 
@@ -11,23 +12,24 @@ class Persona{
     
     method vivirEvento(cual){cual.consecuencia()}
 
+}
 
-
+object intensidad {
+    var property valorIntensidadElevada=0
 }
 
 class Grupo{
-    var property integrantes
+    var property integrantes=[]
 
     method vivirEvento(cual){integrantes.forEach({persona=>persona.vivirEvento(cual)})}
 
 }
 
 
-
-
 class Evento{
 
     var property impactoEvento
+
     var property descripcion="" // char[n]
 
     method consecuencia(){
@@ -37,8 +39,9 @@ class Evento{
 
 class Emocion{
     var property intensidad
-    //var property puedeSerLiberada
+
     var property eventosExperimentados=[]
+
     var property cantEventosExperimentados=self.eventosExperimentados().size()
 
     method disminuirIntensidad(cuanto){intensidad=-cuanto}
@@ -51,15 +54,17 @@ class Emocion{
 
     method liberarse(){
         if(self.puedeLiberarse()){
+
             self.consecuencia()
+
         }
     }
-
-    method intensidadElevada()=self.intensidad()>Persona.valorIntensidadElevada()
+    
+    method intensidadElevada() = self.intensidad()>intensidad.valorIntensidadElevada()
 
 }
 
-object furia inherits Emocion(intensidad=100){
+class Furia inherits Emocion(intensidad=100){
     const property palabrotas=[]
     method aprenderPalabrota(p){palabrotas.add(p)}
     method olvidarPalabrota(p){palabrotas.remove(p)}
@@ -76,15 +81,13 @@ object furia inherits Emocion(intensidad=100){
 }
 
 
-object alegria inherits Emocion(intensidad=0){
+class Alegria inherits Emocion(intensidad=0){
 
     override method puedeLiberarse()=self.intensidadElevada() and self.cantEventosExperimentados().even()
 
     override method consecuencia(){
         self.disminuirIntensidad(Evento.impactoEvento())
     }
-
-    
 
 
     override method disminuirIntensidad(cuanto){
@@ -97,7 +100,7 @@ object alegria inherits Emocion(intensidad=0){
 
 }
 
-object tristeza inherits Emocion(intensidad=0){
+class Tristeza inherits Emocion(intensidad=0){
 
     var property causa="melancolia"
 
@@ -105,9 +108,9 @@ object tristeza inherits Emocion(intensidad=0){
 
     override method consecuencia(){
         self.causa(Evento.descripcion())
-        self.disminuirIntensidad(Evento.impactoEvento())}
+        self.disminuirIntensidad(Evento.impactoEvento())
+    }
 
-    
 }
 
 class DesTem inherits Emocion(intensidad=0){
@@ -119,13 +122,13 @@ class DesTem inherits Emocion(intensidad=0){
     method masEvQueIntens()= self.cantEventosExperimentados()>self.intensidad()
 }
 
-const desagrado= new DesTem(intensidad=0)
-const temor= new DesTem(intensidad=0)
+class Desagrado inherits DesTem{}
+class Temor inherits DesTem{}
 
 
 // ANSIEDAD
 
-object ansiedad inherits Emocion(intensidad=4){
+class Ansiedad inherits Emocion(intensidad=4){
     
     override method puedeLiberarse()=self.intensidadNegativa()
 
@@ -142,22 +145,12 @@ object ansiedad inherits Emocion(intensidad=4){
  ---PARTE-TEORICA---
 Polimorfismo y herencia, cliche de la programacion.
 Primero, en cuanto a la herencia, este concepto fue fundamental 
-en el desarrollo de este parcia, ya que permitio generalizar el modelado 
-de las emociones por ejemplo, lo cual, sin el uso de dicho concepto, seria impractico
-e incluso en la mayoria de casos del mundo real imposible, por el tiempo que demandaria
-tomaria hacer objeto por objeto, en lugar de instanciarlos de clases padre.
-El polimorfismo a su vez, sirvio por ejemplo a la hora de.... Como permite
-que la respuesta varie dependiendo a quien se le pregunta, no puede faltar
-en un desarrollo de codigo.
-
-
-
+en el desarrollo de este parcial, ya que permitio generalizar el modelado 
+de las emociones por ejemplo, lo cual, sin el uso de dicho concepto, seria impractico,
+asi que se utiliza la instanciacion de clases padre.
+El polimorfismo a su vez, sirvio por ejemplo a la hora de escribir el metodo vivirEvento(), 
+ya que dependera lo que haga de lo que se le pase, si una persona o un grupo. 
+Por lo tanto se puede afirmar que permite que la respuesta varie dependiendo a lo que se le consulta.
 
 */
-
-
-
-
-
-
 
