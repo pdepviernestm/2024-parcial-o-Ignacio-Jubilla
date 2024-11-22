@@ -1,6 +1,6 @@
 
 
-## Example
+## Parcial Objetos(22/11/2024)
 
-TODO
+alumno: Ignacio Jubilla
 

@@ -1,0 +1,27 @@
+import intensamente.*
+
+const alegria=new Alegria(intensidad=20)
+const tristeza=new Tristeza(intensidad=12)
+const temor=new Temor(intensidad=4)
+const furia=new Furia(intensidad=25)
+const ansiedad=new Ansiedad(intensidad=40)
+
+const ana=new Persona(edad=21,emociones=[alegria,temor])
+const pedro=new Persona(edad=13,emociones=[alegria,furia])
+const riley=new Persona(edad=16,emociones=[furia,ansiedad,tristeza])
+    
+const amigos=new Grupo(integrantes=[ana,pedro,riley])
+
+test "ana tiene 21"{
+    assert.equals(21, ana.edad())
+}
+
+test "nos vamos de paseo"{
+    
+    const visitaMuseo=new Evento(impactoEvento=55,descripcion="visitamos el museo de la ciudad")
+
+    assert.notThat((amigos.integrantes()).any({alguno=>alguno.porExplotar()}))
+    
+
+}
+
